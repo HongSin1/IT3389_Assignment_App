@@ -1,4 +1,5 @@
 import streamlit as st
+import gdown
 import diseasepredapp  
 import med_imageClassification  
 import outpatient_prediction_app  
