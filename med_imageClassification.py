@@ -2,7 +2,6 @@ import streamlit as st
 import tensorflow as tf
 import numpy as np
 from PIL import Image
-import os
 
 # Load the model
 @st.cache_resource
@@ -25,28 +24,37 @@ class_labels = {
     9: 'Neozep'
 }
 
-# Sidebar navigation
+# Sidebar Navigation
 st.sidebar.title("Navigation")
-page = st.sidebar.radio("Go to", ["Homepage", "Image Classifier"])
 
-# Homepage
-if page == "Homepage":
-    st.title("Welcome to the Medicine Image Classifier")
-    st.write("Navigate using the sidebar to classify images.")
+# Add "Image Classifier" as the default page
+page = st.sidebar.radio(
+    "Go to", 
+    ["🏠 Home", "📸 Image Classifier", "🩺 Disease Prediction", "📅 Outpatient Prediction", "🛏️ Bed Occupancy Prediction"],
+    index=1  # Default is "Image Classifier"
+)
 
-# Image Classifier
-elif page == "Image Classifier":
-    st.title("Medicine Image Classifier")
+# Redirect function using JavaScript
+def redirect(url):
+    st.markdown(f'<meta http-equiv="refresh" content="0; url={url}">', unsafe_allow_html=True)
+
+# Navigation Logic (Redirect Instantly)
+if page == "🏠 Home":
+    redirect("https://maintrying.streamlit.app/")
+
+elif page == "📸 Image Classifier":
+    # Image Classifier page content
+    st.title("📸 Medicine Image Classifier")
     st.write("Upload an image to classify.")
 
     uploaded_file = st.file_uploader("Upload an Image", type=["jpg", "png", "jpeg"])
 
     if uploaded_file is not None:
         image = Image.open(uploaded_file).convert('RGB')
-        st.image(image, caption="Uploaded Image", use_column_width=True)
+        st.image(image, caption="Uploaded Image", use_container_width=True)  # Updated parameter here
 
-        # Extract actual class from filename (assuming format: 'ClassName_#.jpg')
-        actual_class = uploaded_file.name.split("_")[0]  # Gets the first part before "_"
+        # Extract actual class from filename
+        actual_class = uploaded_file.name.split("_")[0] 
 
         # Preprocess the image
         image = image.resize((224, 224))
@@ -59,13 +67,16 @@ elif page == "Image Classifier":
         confidence = np.max(prediction)  # Get confidence score
 
         # Show results
-        st.subheader("Image Classification Prediction Result")
-        st.write(f"### **Actual Class:** {actual_class}")
+        st.subheader("🔍 Classification Result")
+        st.write(f"### **Actual Class :** {actual_class}")
         st.write(f"### **Predicted Class:** {class_labels[predicted_class]}")
         st.write(f"### **Confidence:** {confidence:.2f}")
 
-        # Check if prediction is correct
-        if actual_class.lower() == class_labels[predicted_class].lower():
-            st.success("✅ Prediction is correct!")
-        else:
-            st.error("❌ Prediction is incorrect.")
+elif page == "🩺 Disease Prediction":
+    redirect("https://your-disease-prediction-link")
+
+elif page == "📅 Outpatient Prediction":
+    redirect("https://your-outpatient-prediction-link")
+
+elif page == "🛏️ Bed Occupancy Prediction":
+    redirect("https://your-bed-occupancy-link")
