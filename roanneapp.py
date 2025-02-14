@@ -6,7 +6,7 @@ from tensorflow.keras.models import load_model
 # Load pre-trained model
 @st.cache_resource
 def load_prediction_model():
-    model = load_model('best_deep_model.h5')
+    model = load_model('roanne_best_deep_model.h5')
     return model
 
 # Prediction function
