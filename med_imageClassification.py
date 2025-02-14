@@ -10,7 +10,19 @@ def load_model():
 
 model = load_model()
 
-
+# Define class labels
+class_labels = {
+    0: 'Alaxan',
+    1: 'Bactidol',
+    2: 'Bioflu',
+    3: 'Biogesic',
+    4: 'DayZinc',
+    5: 'Decolgen',
+    6: 'Fish Oil',
+    7: 'Kremil S',
+    8: 'Medicol',
+    9: 'Neozep'
+}
 
 # Main function to run the Streamlit app
 def main():
