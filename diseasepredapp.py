@@ -60,37 +60,43 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# UI Layout with Two Columns
-st.title("🩺 Disease Prediction System")
-st.write("### Select symptoms to predict possible diseases.")
+# Main function
+def main():
+    # UI Layout with Two Columns
+    st.title("🩺 Disease Prediction System")
+    st.write("### Select symptoms to predict possible diseases.")
 
-col1, col2 = st.columns([1, 2])  # Left column for input, right column for results
+    col1, col2 = st.columns([1, 2])  # Left column for input, right column for results
 
-with col1:
-    selected_symptoms = st.multiselect("Select Symptoms:", SYMPTOMS)
-    predict_button = st.button("🔍 Predict Disease")
+    with col1:
+        selected_symptoms = st.multiselect("Select Symptoms:", SYMPTOMS)
+        predict_button = st.button("🔍 Predict Disease")
 
-if predict_button:
-    symptom_values = np.array([[1 if symptom in selected_symptoms else 0 for symptom in SYMPTOMS]])
-    prediction = model.predict(symptom_values)
+    if predict_button:
+        symptom_values = np.array([[1 if symptom in selected_symptoms else 0 for symptom in SYMPTOMS]])
+        prediction = model.predict(symptom_values)
 
-    # Get top 5 predicted diseases
-    top_5_indices = np.argsort(prediction[0])[-5:][::-1]
-    top_5_diseases = {DISEASES[i]: prediction[0][i] for i in top_5_indices}
+        # Get top 5 predicted diseases
+        top_5_indices = np.argsort(prediction[0])[-5:][::-1]
+        top_5_diseases = {DISEASES[i]: prediction[0][i] for i in top_5_indices}
 
-    # Get the most likely disease
-    predicted_disease = list(top_5_diseases.keys())[0]
-    confidence_score = top_5_diseases[predicted_disease] * 100
+        # Get the most likely disease
+        predicted_disease = list(top_5_diseases.keys())[0]
+        confidence_score = top_5_diseases[predicted_disease] * 100
 
-    with col2:
-        st.success(f"🎯 Predicted Disease: **{predicted_disease}**")
-        st.write(f"🟢 Confidence: **{confidence_score:.2f}%**")
+        with col2:
+            st.success(f"🎯 Predicted Disease: **{predicted_disease}**")
+            st.write(f"🟢 Confidence: **{confidence_score:.2f}%**")
 
-        # Fetch and display disease description
-        description = get_disease_description(predicted_disease)
-        st.write(f"### ℹ️ About {predicted_disease}:")
-        st.write(description)
+            # Fetch and display disease description
+            description = get_disease_description(predicted_disease)
+            st.write(f"### ℹ️ About {predicted_disease}:")
+            st.write(description)
 
-        # Display bar chart for top 5 diseases
-        st.write("### 📊 Likelihood of Top 5 Diseases:")
-        st.bar_chart(pd.DataFrame(top_5_diseases.values(), index=top_5_diseases.keys(), columns=["Likelihood"]))
+            # Display bar chart for top 5 diseases
+            st.write("### 📊 Likelihood of Top 5 Diseases:")
+            st.bar_chart(pd.DataFrame(top_5_diseases.values(), index=top_5_diseases.keys(), columns=["Likelihood"]))
+
+# Ensure the script runs as a Streamlit app
+if __name__ == "__main__":
+    main()
