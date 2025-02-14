@@ -76,8 +76,7 @@ st.markdown('</div>', unsafe_allow_html=True)
 page = "📸 Image Classifier"  # Set "Image Classifier" as the default page
 
 if page == "🏠 Home":
-    st.title("🏥 Welcome to AI Healthcare Solutions")
-    st.write("This is the homepage where we can showcase the latest AI innovations in healthcare.")
+    redirect("https://maintrying.streamlit.app/")
 
 elif page == "📸 Image Classifier":
     st.title("📸 Medicine Image Classifier")
