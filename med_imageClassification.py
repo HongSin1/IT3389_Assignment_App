@@ -6,7 +6,7 @@ from PIL import Image
 # Load the model
 @st.cache_resource
 def load_model():
-    return tf.keras.models.load_model("finetune_mobilenetv2_new.h5")
+    return tf.keras.models.load_model("wileen_mobilenetv2_new.h5")
 
 model = load_model()
 
