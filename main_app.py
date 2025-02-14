@@ -9,10 +9,11 @@ selected_model = st.sidebar.radio(
     "Select a Model to Explore:",
     (
         "Home Page",
-        "Disease Prediction App",
-        "Medical Image Classification",
+        "Background Information"
+        "Disease Prediction System",
+        "Medicine Image Classifier",
         "Outpatient Attendance Prediction",
-        "Roanne's Prediction App"
+        "Hospital Capacity Prediction"
     )
 )
 
@@ -23,20 +24,23 @@ if selected_model == "Home Page":
         """
         This application showcases 4 different healthcare prediction models:
         
-        1. Disease Prediction App
-        2. Medical Image Classification
+        1. Disease Prediction System
+        2. Medicine Image Classifier
         3. Outpatient Attendance Prediction
-        4. Roanne's Prediction App
+        4. Hospital Capacity Prediction
         
-        Use the sidebar to navigate between the different models.
+        Use the sidebar to navigate between the different models and to learn more about our research!
         """
     )
-
-elif selected_model == "Disease Prediction App":
+elif selected_model == "Background Information":
+    import background_info
+    background_info.main()
+    
+elif selected_model == "Disease Prediction System":
     import diseasepredapp  
     diseasepredapp.main()
 
-elif selected_model == "Medical Image Classification":
+elif selected_model == "Medicine Image Classifier":
     import med_imageClassification  
     med_imageClassification.main()
 
@@ -44,6 +48,6 @@ elif selected_model == "Outpatient Attendance Prediction":
     import outpatient_prediction_app  
     outpatient_prediction_app.main()
 
-elif selected_model == "Roanne's Prediction App":
+elif selected_model == "Hospital Capacity Prediction":
     import roanneapp  
     roanneapp.main()
