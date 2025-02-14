@@ -34,20 +34,16 @@ if selected_model == "Home Page":
 
 elif selected_model == "Disease Prediction App":
     import diseasepredapp  
-    st.title("Disease Prediction Model")
     diseasepredapp.main()
 
 elif selected_model == "Medical Image Classification":
     import med_imageClassification  
-    st.title("Medical Image Classification Model")
     med_imageClassification.main()
 
 elif selected_model == "Outpatient Attendance Prediction":
     import outpatient_prediction_app  
-    st.title("Outpatient Attendance Prediction")
     outpatient_prediction_app.main()
 
 elif selected_model == "Roanne's Prediction App":
     import roanneapp  
-    st.title("Roanne's Prediction Model")
     roanneapp.main()
