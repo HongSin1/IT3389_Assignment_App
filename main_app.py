@@ -9,7 +9,7 @@ selected_model = st.sidebar.radio(
     "Select a Model to Explore:",
     (
         "Home Page",
-        "Background Information"
+        "Background Information",
         "Disease Prediction System",
         "Medicine Image Classifier",
         "Outpatient Attendance Prediction",
