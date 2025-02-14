@@ -5,7 +5,7 @@ import med_imageClassification
 import outpatient_prediction_app  
 import roanneapp  
 
-# Set the Streamlit app title
+# Set the Streamlit app title (this should be the first Streamlit command)
 st.set_page_config(page_title="Healthcare Prediction Models", page_icon="🩺", layout="wide")
 
 # Sidebar Navigation
