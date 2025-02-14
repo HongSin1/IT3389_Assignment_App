@@ -6,8 +6,6 @@ import gdown
 from tensorflow.keras.models import load_model
 import wikipedia
 
-# Set Page to Wide Mode
-st.set_page_config(layout="wide")
 
 # Google Drive file IDs
 CSV_FILE_ID = "1SOGfczIm_XcFJqBxOaOB7kFsBQn3ZSv5"
