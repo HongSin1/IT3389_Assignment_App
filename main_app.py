@@ -1,11 +1,6 @@
 import streamlit as st
-import gdown
-import diseasepredapp  
-import med_imageClassification  
-import outpatient_prediction_app  
-import roanneapp  
 
-# Set the Streamlit app title (this should be the first Streamlit command)
+# Set the Streamlit app title (first Streamlit command)
 st.set_page_config(page_title="Healthcare Prediction Models", page_icon="🩺", layout="wide")
 
 # Sidebar Navigation
@@ -21,7 +16,7 @@ selected_model = st.sidebar.radio(
     )
 )
 
-# Home Page
+# Conditional imports for each model to avoid early Streamlit calls
 if selected_model == "Home Page":
     st.title("Welcome to Our Healthcare Prediction Models App")
     st.write(
@@ -37,19 +32,22 @@ if selected_model == "Home Page":
         """
     )
 
-# Link to each model's app
 elif selected_model == "Disease Prediction App":
+    import diseasepredapp  
     st.title("Disease Prediction Model")
     diseasepredapp.main()
 
 elif selected_model == "Medical Image Classification":
+    import med_imageClassification  
     st.title("Medical Image Classification Model")
     med_imageClassification.main()
 
 elif selected_model == "Outpatient Attendance Prediction":
+    import outpatient_prediction_app  
     st.title("Outpatient Attendance Prediction")
     outpatient_prediction_app.main()
 
 elif selected_model == "Roanne's Prediction App":
+    import roanneapp  
     st.title("Roanne's Prediction Model")
     roanneapp.main()
