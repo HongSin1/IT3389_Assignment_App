@@ -9,9 +9,6 @@ import matplotlib.pyplot as plt
 import plotly.graph_objects as go
 import textwrap
 
-# Set wide layout
-st.set_page_config(layout="wide")
-
 # Google Drive file IDs
 CSV_FILE_ID = "1SOGfczIm_XcFJqBxOaOB7kFsBQn3ZSv5"
 MODEL_FILE_ID = "1ojNVvOuEb6JyhknTyDVKV6IZrcMTHvog"
