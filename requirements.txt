@@ -10,3 +10,4 @@ wikipedia
 torch
 accelerate
 plotly
+transformers
