@@ -6,6 +6,8 @@ import gdown
 from tensorflow.keras.models import load_model
 import wikipedia
 import matplotlib.pyplot as plt
+import plotly.graph_objects as go
+import textwrap
 
 # Set wide layout
 st.set_page_config(layout="wide")
@@ -53,6 +55,39 @@ def analyze_symptom_significance(model, selected_symptoms, prediction_array, SYM
     ).sort_values('Significance', ascending=False)
     
     return significance_df
+
+def wrap_text(text, width=50):
+    """Wrap text into multiple lines for hover tooltips."""
+    return "<br>".join(textwrap.wrap(text, width))
+
+def plot_disease_likelihood_with_hover(top_5_diseases):
+    """Creates a bar chart where hovering shows disease descriptions in wrapped text."""
+    disease_names = list(top_5_diseases.keys())
+    likelihoods = list(top_5_diseases.values())
+
+    # Fetch descriptions for all top 5 diseases and wrap text
+    descriptions = [wrap_text(get_disease_description(disease)[:250]) for disease in disease_names]
+
+    # Create Plotly bar chart
+    fig = go.Figure(go.Bar(
+        x=likelihoods,
+        y=disease_names,
+        orientation='h',
+        marker=dict(color='#00FF00', opacity=0.6),
+        hoverinfo='text',  # Show text when hovering
+        hovertext=descriptions  # Use wrapped descriptions
+    ))
+
+    fig.update_layout(
+        title="Likelihood of Top 5 Diseases",
+        xaxis_title="Likelihood",
+        yaxis_title="Diseases",
+        template='plotly_white',
+        margin=dict(l=80, r=20, t=40, b=60),
+        height=400  # Adjust the height for better layout
+    )
+
+    return fig
 
 def plot_symptom_significance(significance_df):
     """Creates a horizontal bar plot of symptom significance."""
@@ -135,6 +170,7 @@ def main():
                 symptom_values = np.array([[1 if symptom in selected_symptoms else 0 for symptom in SYMPTOMS]])
                 prediction = model.predict(symptom_values)
                 
+                # Calculate top 5 diseases based on prediction
                 top_5_indices = np.argsort(prediction[0])[-5:][::-1]
                 top_5_diseases = {DISEASES[i]: prediction[0][i] for i in top_5_indices}
                 
@@ -144,17 +180,19 @@ def main():
                 st.success(f"🎯 Predicted Disease: **{predicted_disease}**")
                 st.write(f"🟢 Confidence: **{confidence_score:.2f}%**")
                 
+                # Recommendation for low confidence score
+                if confidence_score < 70:
+                    st.warning("⚠️ The confidence in this prediction is below 70%. It is highly recommended that you consult a doctor for a more accurate diagnosis and better treatment options.")
+                
                 description = get_disease_description(predicted_disease)
                 st.write(f"### ℹ️ About {predicted_disease}:")
                 st.write(description)
                 
                 st.write("### 📊 Likelihood of Top 5 Diseases:")
-                st.bar_chart(pd.DataFrame(
-                    top_5_diseases.values(),
-                    index=top_5_diseases.keys(),
-                    columns=["Likelihood"]
-                ))
-                
+                # Call the Plotly chart with hover descriptions
+                fig_likelihood = plot_disease_likelihood_with_hover(top_5_diseases)
+                st.plotly_chart(fig_likelihood)
+
                 st.write("### 🔍 Symptom Significance Analysis")
                 significance_df = analyze_symptom_significance(
                     model, 
@@ -163,11 +201,12 @@ def main():
                     SYMPTOMS
                 )
                 
-                fig = plot_symptom_significance(significance_df)
-                st.pyplot(fig)
-            
+                fig_significance = plot_symptom_significance(significance_df)
+                st.pyplot(fig_significance)
+
             except Exception as e:
                 st.error(f"Error during prediction: {str(e)}")
+
 
 if __name__ == "__main__":
     main()
