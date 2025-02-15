@@ -9,7 +9,7 @@ from PIL import Image
 @st.cache_resource
 def load_model():
     try:
-        return tf.keras.models.load_model("wileen_mobilenetv2_new.h5")
+        return tf.keras.models.load_model("image_ft_mobilenetv2_new.h5")
     except Exception as e:
         st.error(f"Error loading model: {str(e)}")
         return None
