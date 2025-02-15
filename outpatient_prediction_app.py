@@ -21,7 +21,7 @@ def load_llm_model():
         # Add HUGGINGFACE_TOKEN from secrets if available
         hf_token = st.secrets["HUGGINGFACE_TOKEN"] if "HUGGINGFACE_TOKEN" in st.secrets else None
 
-        # Initialise BLOOMZ model with token
+        # Initialise GPT 2 model with token
         model_name = "openai-community/gpt2-medium"
         tokenizer = AutoTokenizer.from_pretrained(
             model_name,
