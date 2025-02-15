@@ -3,10 +3,15 @@ import tensorflow as tf
 import numpy as np
 from PIL import Image
 
+
 # Load the model
 @st.cache_resource
 def load_model():
-    return tf.keras.models.load_model("wileen_mobilenetv2_new.h5")
+    try:
+        return tf.keras.models.load_model("wileen_mobilenetv2_new.h5")
+    except Exception as e:
+        st.error(f"Error loading model: {str(e)}")
+        return None
 
 model = load_model()
 
@@ -139,61 +144,100 @@ medicine_info = {
 }
 
 def display_medicine_info(medicine_name):
-    info = medicine_info[medicine_name]
-    st.write("### 📝 Description")
-    st.write(info['description'])
-    
-    st.write("### 💊 Common Uses")
-    for use in info['uses']:
-        st.write(f"• {use}")
-    
-    st.write("### ⚠️ Important Note")
-    st.write(info['note'])
+    """Display medicine information in a structured format"""
+    try:
+        info = medicine_info[medicine_name]
+        st.markdown("### 📝 Description")
+        st.write(info['description'])
+        
+        st.markdown("### 💊 Common Uses")
+        for use in info['uses']:
+            st.write(f"• {use}")
+        
+        st.markdown("### ⚠️ Important Note")
+        st.write(info['note'])
+    except Exception as e:
+        st.error(f"Error displaying medicine information: {str(e)}")
+
+def process_image(uploaded_file):
+    """Process the uploaded image and return the preprocessed version"""
+    try:
+        image = Image.open(uploaded_file).convert('RGB')
+        image_for_model = image.resize((224, 224))
+        image_array = np.array(image_for_model) / 255.0
+        return image, np.expand_dims(image_array, axis=0)
+    except Exception as e:
+        st.error(f"Error processing image: {str(e)}")
+        return None, None
 
 def main():
-    page = "📸 Image Classifier"
+    st.title("📸 Medicine Image Classifier")
+    st.write("Upload an image to classify.")
     
-    if page == "📸 Image Classifier":
-        st.title("📸 Medicine Image Classifier")
-        st.write("Upload an image to classify.")
+    model = load_model()
+    if model is None:
+        st.error("Failed to load model. Please try again later.")
+        return
+
+    uploaded_file = st.file_uploader("Upload an Image", type=["jpg", "png", "jpeg"])
+    
+    if uploaded_file is not None:
+        # Process image
+        image, processed_image = process_image(uploaded_file)
+        if image is None or processed_image is None:
+            return
+
+        # Display image
+        width, _ = image.size
+        display_width = min(width, 900)
+        st.image(image, caption="Uploaded Image", width=display_width)
         
-        uploaded_file = st.file_uploader("Upload an Image", type=["jpg", "png", "jpeg"])
-        
-        if uploaded_file is not None:
-            image = Image.open(uploaded_file).convert('RGB')
-            st.image(image, caption="Uploaded Image", use_container_width=True)
-            
+        try:
             # Extract actual class from filename
             actual_class = uploaded_file.name.split("_")[0]
             
-            # Preprocess the image
-            image = image.resize((224, 224))
-            image = np.array(image) / 255.0
-            image = np.expand_dims(image, axis=0)
-            
             # Make prediction
-            prediction = model.predict(image)
+            prediction = model.predict(processed_image)
             predicted_class = class_labels[np.argmax(prediction)]
             confidence = np.max(prediction)
             
             # Show results
-            st.subheader("🔍 Classification Result")
-            st.write(f"### **Actual Class:** {actual_class}")
-            st.write(f"### **Predicted Class:** {predicted_class}")
-            st.write(f"### **Confidence:** {confidence:.2%}")
+            st.markdown("## 🔍 Classification Result")
+            st.markdown(f"### Actual Class: {actual_class}")
+            st.markdown(f"### Predicted Class: {predicted_class}")
+            st.markdown(f"### Confidence: {confidence:.2%}")
             
             # Display medicine information based on prediction accuracy
             st.markdown("---")
+            
             if predicted_class == actual_class:
                 st.success("✅ Correct Prediction!")
+                if confidence < 0.75:
+                    st.warning("‼️ **Low Confidence Prediction:** While the prediction is correct, the confidence is less than 75%. It's advisable to consult a healthcare professional or pharmacist to verify this medication.")
                 display_medicine_info(predicted_class)
             else:
                 st.error("❌ Incorrect Prediction")
-                st.write("### Actual Medicine Information:")
-                display_medicine_info(actual_class)
-                st.markdown("---")
-                st.write("### Wrong Predicted Medicine Information:")
-                display_medicine_info(predicted_class)
+                st.warning("‼️ **Important:** The model has misidentified this medication. Please consult a healthcare professional or pharmacist to verify any medication before use.")
+                
+                # Create columns only if we need to display both sets of information
+                col1, col2 = st.columns(2)
+                
+                with col1:
+                    st.markdown(f"### Actual Medicine: {actual_class}")
+                    if actual_class in medicine_info:
+                        display_medicine_info(actual_class)
+                    else:
+                        st.error(f"No information available for {actual_class}")
+                
+                with col2:
+                    st.markdown(f"### Predicted Medicine: {predicted_class}")
+                    if predicted_class in medicine_info:
+                        display_medicine_info(predicted_class)
+                    else:
+                        st.error(f"No information available for {predicted_class}")
+                
+        except Exception as e:
+            st.error(f"An error occurred during classification: {str(e)}")
 
 if __name__ == "__main__":
     main()
