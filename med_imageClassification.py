@@ -4,6 +4,7 @@ import numpy as np
 from PIL import Image
 
 
+
 # Load the model
 @st.cache_resource
 def load_model():
