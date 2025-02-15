@@ -186,7 +186,6 @@ def main():
         st.session_state.last_file_id = None
 
     # Set page layout and title
-    st.set_page_config(layout="wide")
     st.title('😷 Outpatient Attendance Prediction')
     
     # File upload section
