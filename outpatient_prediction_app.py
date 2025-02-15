@@ -18,16 +18,30 @@ months = ['January', 'February', 'March', 'April', 'May', 'June',
 @st.cache_resource
 def load_llm_model():
     try:
-        # Initialise BLOOMZ model for text generation
+        # Add HUGGINGFACE_TOKEN from secrets if available
+        hf_token = st.secrets["HUGGINGFACE_TOKEN"] if "HUGGINGFACE_TOKEN" in st.secrets else None
+
+        # Initialise BLOOMZ model with token
         model_name = "bigscience/bloomz-560m"
-        tokenizer = AutoTokenizer.from_pretrained(model_name)
-        model = AutoModelForCausalLM.from_pretrained(model_name)
+        tokenizer = AutoTokenizer.from_pretrained(
+            model_name,
+            token=hf_token,
+            model_max_length=512, 
+            truncation=True
+        )
+        model = AutoModelForCausalLM.from_pretrained(
+            model_name,
+            token=hf_token,
+            low_cpu_mem_usage=True,  
+            device_map='auto' 
+        )
         generator = pipeline('text-generation',
                            model=model,
-                           tokenizer=tokenizer)
+                           tokenizer=tokenizer,
+                           device_map='auto')
         return generator
     except Exception as e:
-        st.error(f"Error loading model: {e}")
+        st.error(f"Error loading model: {str(e)}")
         return None
 
 # Generate personnel recommendations based on outpatient attendance
@@ -67,6 +81,7 @@ def generate_personnel_recommendation(attendance, month):
         # Generate recommendation
         response = generator(prompt,
                            do_sample=True,
+                           truncation=True,
                            max_length=len(prompt) + 15,
                            num_return_sequences=1,
                            temperature=0.7,
