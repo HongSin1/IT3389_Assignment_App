@@ -3,7 +3,8 @@ import tensorflow as tf
 import numpy as np
 from PIL import Image
 
-
+# Configure page layout to use full width
+st.set_page_config(layout="wide")
 
 # Load the model
 @st.cache_resource
