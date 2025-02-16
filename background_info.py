@@ -100,7 +100,7 @@ def main():
     """, unsafe_allow_html=True)
 
     # Page title with larger font
-    st.markdown('<h1 class="main-title">🔍 How AI is Transforming Healthcare in Singapore</h1>', unsafe_allow_html=True)
+    st.markdown('<h1 class="main-title">🔍 How AI is Transforming Healthcare in Singapore</h1><br><br>', unsafe_allow_html=True)
 
     # Content sections using custom columns with adjusted image sizes
     # 1. Disease Prediction
