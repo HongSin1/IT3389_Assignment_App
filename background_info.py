@@ -125,10 +125,12 @@ def main():
     with col4:
         st.markdown("""
             ### 2️⃣ Medicine Image Classification
-            AI-powered image classification helps pharmacies and hospitals identify medicines accurately, 
-            reducing Look-Alike Sound-Alike (LASA) drug errors. It enhances patient safety, minimizes manual checks, and 
-            optimizes healthcare resources by freeing up staff for direct patient care. While AI improves efficiency, human 
-            oversight ensures reliability, making it a valuable support tool in medication management.
+            AI-powered image classification enables pharmacies and hospitals to accurately identify medications, decreasing 
+            Look-Alike Sound-Alike (LASA) drug mistakes. By freeing up workers to provide direct patient care, it improves patient 
+            safety, reduces the need for manual checks, and maximizes healthcare resources. It speeds up prescription processing, simplifies 
+            operations, and lowers the possibility of human error by automating repetitive tasks. It also ensures that the right 
+            drug is given by preventing pharmaceutical mix-ups. AI is a useful support tool for medication administration and the provision 
+            of healthcare overall because, although it increases efficiency, human oversight guarantees dependability.
         """)
 
     st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
