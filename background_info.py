@@ -1,6 +1,5 @@
 import streamlit as st
 
-# [Previous CSS styles remain the same...]
 st.markdown("""
     <style>
         /* Main title styling */
@@ -108,7 +107,7 @@ def main():
     col1, col2 = st.columns([2, 1], gap="small")
     with col1:
         st.markdown("""
-            ### 1️⃣ Disease Prediction with AI
+            ### 1️⃣ Disease Prediction System
             AI models can analyze patient symptoms, genetic data, and medical history to **predict diseases early**.
             By identifying patterns, AI helps doctors make informed decisions and improve **early diagnosis rates**.
             👉 [Learn more](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7179009/)
@@ -137,9 +136,10 @@ def main():
     with col5:
         st.markdown("""
             ### 3️⃣ Predicting Outpatient Attendance
-            AI can predict **hospital and clinic attendance trends** by analyzing past patient visits and seasonal changes.
-            This helps hospitals allocate **staff and resources effectively**, reducing waiting times for patients.
-            👉 [Explore AI in Healthcare](https://www.healthcareitnews.com/news/how-ai-can-improve-patient-flow-and-hospital-operations)
+            AI can be used to help predict **outpatient attendance** by analysing past patient visits in public healthcare facilities. 
+            It can also provide healthcare personnel recommendation based on the predicted outpatient attendance which will
+            help our public healthcare facilities to better align staffing needs with patient demand, reducing both over and under staffing scenarios. 
+            Therefore, this enhances operational efficiency, minimises resource waste, and optimises healthcare resources, contributing to sustainable healthcare practices.
         """)
     with col6:
         st.image("bgImage/outpatient.jpeg", use_container_width=True)
