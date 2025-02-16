@@ -40,15 +40,15 @@ def create_sample_data():
 
 
 def main():
-    st.title("🏥 Hospital Capacity Analysis (2019-2023)")
+    st.title("🏥 Hospital Capacity Prediction")
     st.markdown("Analyzing historical hospital capacity trends and predictions")
 
     # Create sample data
     data = create_sample_data()
 
-    # Sidebar filters
-    st.sidebar.header("Filters")
-    selected_years = st.sidebar.multiselect(
+    # Filter options moved below the title
+    st.subheader("Filters")
+    selected_years = st.multiselect(
         "Select Years",
         options=sorted(data['Year'].unique()),
         default=sorted(data['Year'].unique())
