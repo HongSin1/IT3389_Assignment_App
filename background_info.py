@@ -142,7 +142,7 @@ def main():
             Therefore, this enhances operational efficiency, minimises resource waste, and optimises healthcare resources, contributing to sustainable healthcare practices.
         """)
     with col6:
-        st.image("bgImage/outpatient.jpeg", use_container_width=True)
+        st.image("bgImage/outpatient.jpg", use_container_width=True)
 
     st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
 
