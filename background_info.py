@@ -109,8 +109,9 @@ def main():
         st.markdown("""
             ### 1️⃣ Disease Prediction System
             AI models can analyze patient symptoms, genetic data, and medical history to **predict diseases early**.
-            By identifying patterns, AI helps doctors make informed decisions and improve **early diagnosis rates**.
-            👉 [Learn more](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7179009/)
+            By identifying patterns such as symptom to disease and symptom to other symptoms, AI helps doctors make informed decisions and improve **early diagnosis rates**.
+            In addition, it will be sustainable for the healthcare sector with regards to **Manpower**, where healthcare sectors can delegate doctors to more important sectors of healthcare.
+            👉 [Learn more](https://www.youtube.com/watch?v=P5jTcEWhJMc)
         """)
     with col2:
         st.image("bgImage/disease_prediction.jpeg", use_container_width=True)
