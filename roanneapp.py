@@ -8,8 +8,7 @@ from datetime import datetime
 
 def setup_page():
     st.set_page_config(page_title="Hospital Capacity Analysis", 
-                      page_icon="🏥",
-                      layout="wide")
+                      page_icon="🏥")
     st.title("🏥 Hospital Capacity Analysis (2019-2023)")
     st.markdown("Analyzing historical hospital capacity trends and predictions")
 
