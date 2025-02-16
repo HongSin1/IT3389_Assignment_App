@@ -125,9 +125,10 @@ def main():
     with col4:
         st.markdown("""
             ### 2️⃣ Medicine Image Classification
-            AI-powered image classification helps pharmacies and hospitals **identify and categorize medicines accurately**.
-            This minimizes errors in prescription management and improves **efficiency in medical supply chains**.
-            👉 [Read more](https://medimageclassification.streamlit.app/)
+            AI-powered image classification helps pharmacies and hospitals identify medicines accurately, 
+            reducing Look-Alike Sound-Alike (LASA) drug errors. It enhances patient safety, minimizes manual checks, and 
+            optimizes healthcare resources by freeing up staff for direct patient care. While AI improves efficiency, human 
+            oversight ensures reliability, making it a valuable support tool in medication management.
         """)
 
     st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
