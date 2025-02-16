@@ -6,9 +6,10 @@ import plotly.express as px
 import plotly.graph_objects as go
 from datetime import datetime
 
+st.set_page_config(page_title="Hospital Capacity Analysis", 
+                   page_icon="🏥")
+
 def setup_page():
-    st.set_page_config(page_title="Hospital Capacity Analysis", 
-                      page_icon="🏥")
     st.title("🏥 Hospital Capacity Analysis (2019-2023)")
     st.markdown("Analyzing historical hospital capacity trends and predictions")
 
