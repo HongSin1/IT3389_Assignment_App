@@ -214,8 +214,8 @@ def main():
             
             if predicted_class == actual_class:
                 st.success("✅ Correct Prediction!")
-                if confidence < 0.75:
-                    st.warning("‼️ **Low Confidence Prediction:** While the prediction is correct, the confidence is less than 75%. It's advisable to consult a healthcare professional or pharmacist to verify this medication.")
+                if confidence < 0.8:
+                    st.warning("‼️ **Low Confidence Prediction:** While the prediction is correct, the confidence is less than 80%. It's advisable to consult a healthcare professional or pharmacist to verify this medication.")
                 display_medicine_info(predicted_class)
             else:
                 st.error("❌ Incorrect Prediction")
