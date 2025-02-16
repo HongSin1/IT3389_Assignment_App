@@ -96,7 +96,7 @@ def main():
             provide help for our healthcare sector by offering them the potential to enhance efficiency in hospitals, optimise healthcare resources, and 
             improve accessibility. Hence, these possibilities lead us to form our problem statement: 
             <b>How can AI help optimize healthcare resources and improve accessibility for Singaporeans?</b>
-        </div>
+        </div><br><br>
     """, unsafe_allow_html=True)
 
     # Page title with larger font
