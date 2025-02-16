@@ -153,9 +153,10 @@ def main():
     with col8:
         st.markdown("""
             ### 4️⃣ Hospital Capacity Prediction
-            AI-driven models analyze hospital data to **forecast bed demand** and **optimize hospital occupancy rates**.
-            This prevents overcrowding, improves emergency care, and ensures **better resource management**.
-            👉 [See AI's impact](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0266612)
+            AI-driven models analyze hospital data to forecast bed demand and optimize hospital occupancy rates. This prevents overcrowding, 
+            improves emergency care, and ensures better resource management. By identifying capacity trends in advance, 
+            hospitals can allocate resources more effectively, align staffing levels with patient demand, and enhance overall patient care. 
+            This proactive approach minimizes inefficiencies and supports a sustainable, efficient healthcare system.
         """)
 
 if __name__ == "__main__":
